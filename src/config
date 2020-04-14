@@ -1,0 +1,7 @@
+initTankCount=10
+tankSpeed=10
+bulletSpeed=20
+gameWidth=1080
+gameHeight=960
+goodFireMode=com.mashibing.tank.FourDirectionsFireMode
+badFireMode=com.mashibing.tank.DefaultFireMode
