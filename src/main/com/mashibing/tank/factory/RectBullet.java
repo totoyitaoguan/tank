@@ -1,11 +1,10 @@
-package com.mashibing.tank;
+package com.mashibing.tank.factory;
 
-import com.mashibing.tank.factory.BaseBullet;
-import com.mashibing.tank.factory.BaseTank;
+import com.mashibing.tank.*;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private static final int SPEED = PropertyManager.getInt("bulletSpeed");
     public static final int WIDTH = ResourceManager.bulletD.getWidth();
     public static final int HEIGHT = ResourceManager.bulletD.getHeight();
@@ -16,7 +15,7 @@ public class Bullet extends BaseBullet {
     private boolean isLive = true;
     private TankFrame tankFrame;
 
-    public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame) {
+    public RectBullet(int x, int y, Direction direction, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -37,24 +36,11 @@ public class Bullet extends BaseBullet {
             tankFrame.bullets.remove(this);
         }
 
-        Image bulletImg;
-        switch (direction) {
-            case LEFT:
-                bulletImg = ResourceManager.bulletL;
-                break;
-            case UP:
-                bulletImg = ResourceManager.bulletU;
-                break;
-            case RIGHT:
-                bulletImg = ResourceManager.bulletR;
-                break;
-            case DOWN:
-                bulletImg = ResourceManager.bulletD;
-                break;
-            default:
-                bulletImg = null;
-        }
-        g.drawImage(bulletImg, x, y, null);
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 10, 10);
+        g.setColor(c);
+
         move();
     }
 

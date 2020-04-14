@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.factory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    static final int GAME_WIDTH = PropertyManager.getInt("gameWidth");
-    static final int GAME_HEIGHT = PropertyManager.getInt("gameHeight");
+    public static final int GAME_WIDTH = PropertyManager.getInt("gameWidth");
+    public static final int GAME_HEIGHT = PropertyManager.getInt("gameHeight");
     Tank myTank = new Tank(200, 400, Direction.DOWN, Group.GOOD, this);
-    List<Bullet> bullets = new ArrayList<>();
-    List<Tank> opponentTanks = new ArrayList<>();
-    List<Explosion> explosions = new ArrayList<>();
+    public List<BaseBullet> bullets = new ArrayList<>();
+    public List<Tank> opponentTanks = new ArrayList<>();
+    public List<BaseExplosion> explosions = new ArrayList<>();
+    public GameFactory factory = new RectFactory();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);

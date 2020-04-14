@@ -5,7 +5,7 @@ public class DefaultFireMode implements FireMode {
     public void fire(Tank tank) {
         int bulletX = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bulletY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        new Bullet(bulletX, bulletY, tank.getDirection(), tank.getGroup(), tank.getTankFrame());
+        tank.getTankFrame().factory.createBullet(bulletX, bulletY, tank.getDirection(), tank.getGroup(), tank.getTankFrame());
 
         if (tank.getGroup() == Group.GOOD) {
             new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();

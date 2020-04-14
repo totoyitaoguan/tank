@@ -1,14 +1,16 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.factory.BaseTank;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends BaseTank {
     private static final int SPEED = PropertyManager.getInt("tankSpeed");
     public static final int WIDTH = ResourceManager.goodTankD.getWidth();
     public static final int HEIGHT = ResourceManager.goodTankD.getHeight();
     private int x, y;
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
     private Direction direction;
     private Group group;
     private boolean isMoving = true;
@@ -43,6 +45,7 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!isLive) {
             tankFrame.opponentTanks.remove(this);

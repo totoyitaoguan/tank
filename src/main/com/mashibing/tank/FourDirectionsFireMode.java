@@ -8,7 +8,7 @@ public class FourDirectionsFireMode implements FireMode {
 
         Direction[] directions = Direction.values();
         for (Direction dir : directions) {
-            new Bullet(bulletX, bulletY, dir, tank.getGroup(), tank.getTankFrame());
+            tank.getTankFrame().factory.createBullet(bulletX, bulletY, dir, tank.getGroup(), tank.getTankFrame());
         }
 
         if (tank.getGroup() == Group.GOOD) {
