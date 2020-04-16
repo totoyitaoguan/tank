@@ -2,7 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.*;
 
-public class Explosion {
+public class Explosion extends GameObject{
     public static final int WIDTH = ResourceManager.explosions[0].getWidth();
     public static final int HEIGHT = ResourceManager.explosions[0].getHeight();
     private int x, y;
@@ -19,7 +19,7 @@ public class Explosion {
     public void paint(Graphics g) {
         g.drawImage(ResourceManager.explosions[step++], x, y, null);
         if (step >= ResourceManager.explosions.length) {
-            gameModelFacade.explosions.remove(this);
+            gameModelFacade.remove(this);
         }
     }
 }

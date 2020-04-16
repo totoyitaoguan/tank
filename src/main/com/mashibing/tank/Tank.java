@@ -1,9 +1,12 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.firemode.DefaultFireMode;
+import com.mashibing.tank.firemode.FireMode;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
     private static final int SPEED = PropertyManager.getInt("tankSpeed");
     public static final int WIDTH = ResourceManager.goodTankD.getWidth();
     public static final int HEIGHT = ResourceManager.goodTankD.getHeight();
@@ -45,7 +48,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!isLive) {
-            gameModelFacade.opponentTanks.remove(this);
+            gameModelFacade.remove(this);
         }
         Image tankImg;
         switch (direction) {
@@ -120,6 +123,29 @@ public class Tank {
 
     public void die() {
         isLive = false;
+    }
+
+    public void stop() {
+        isMoving = false;
+    }
+
+    public void reverseDirection() {
+        switch (direction) {
+            case LEFT:
+                direction = Direction.RIGHT;
+                break;
+            case UP:
+                direction = Direction.DOWN;
+                break;
+            case RIGHT:
+                direction = Direction.LEFT;
+                break;
+            case DOWN:
+                direction = Direction.UP;
+                break;
+            default:
+                break;
+        }
     }
 
     public void setDirection(Direction direction) {

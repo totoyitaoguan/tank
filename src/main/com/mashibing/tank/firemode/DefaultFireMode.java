@@ -1,4 +1,6 @@
-package com.mashibing.tank;
+package com.mashibing.tank.firemode;
+
+import com.mashibing.tank.*;
 
 public class DefaultFireMode implements FireMode {
     @Override

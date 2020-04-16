@@ -3,5 +3,10 @@ tankSpeed=10
 bulletSpeed=20
 gameWidth=1080
 gameHeight=960
-goodFireMode=com.mashibing.tank.FourDirectionsFireMode
-badFireMode=com.mashibing.tank.DefaultFireMode
+
+# fire mode
+goodFireMode=com.mashibing.tank.firemode.FourDirectionsFireMode
+badFireMode=com.mashibing.tank.firemode.DefaultFireMode
+
+#colliders
+colliders=com.mashibing.tank.collider.TankTankCollider,com.mashibing.tank.collider.BulletTankCollider

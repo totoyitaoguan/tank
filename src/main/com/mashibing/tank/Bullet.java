@@ -2,7 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject{
     private static final int SPEED = PropertyManager.getInt("bulletSpeed");
     public static final int WIDTH = ResourceManager.bulletD.getWidth();
     public static final int HEIGHT = ResourceManager.bulletD.getHeight();
@@ -25,12 +25,12 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModelFacade.bullets.add(this);
+        gameModelFacade.add(this);
     }
 
     public void paint(Graphics g) {
         if (!isLive) {
-            gameModelFacade.bullets.remove(this);
+            gameModelFacade.remove(this);
         }
 
         Image bulletImg;
@@ -81,22 +81,7 @@ public class Bullet {
         }
     }
 
-    public void collideWith(Tank tank) {
-        // bullets will do no harm to the tanks in the same group
-        if (this.group == tank.getGroup())
-            return;
-
-        if (this.rectangle.intersects(tank.getRectangle())) {
-            tank.die();
-            this.die();
-            int eX = tank.getX() + Tank.WIDTH/2 - Explosion.WIDTH/2;
-            int eY = tank.getY() + Tank.HEIGHT/2 - Explosion.HEIGHT/2;
-            gameModelFacade.explosions.add(new Explosion(eX, eY, gameModelFacade));
-        }
-
-    }
-
-    private void die() {
+    public void die() {
         isLive = false;
     }
 
@@ -106,5 +91,13 @@ public class Bullet {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public GameModelFacade getGameModelFacade() {
+        return gameModelFacade;
     }
 }
