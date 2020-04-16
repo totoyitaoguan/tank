@@ -5,16 +5,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TankFrame extends Frame {
     static final int GAME_WIDTH = PropertyManager.getInt("gameWidth");
     static final int GAME_HEIGHT = PropertyManager.getInt("gameHeight");
-    Tank myTank = new Tank(200, 400, Direction.DOWN, Group.GOOD, this);
-    List<Bullet> bullets = new ArrayList<>();
-    List<Tank> opponentTanks = new ArrayList<>();
-    List<Explosion> explosions = new ArrayList<>();
+    GameModelFacade gameModelFacade = new GameModelFacade();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -50,30 +45,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("Bullets: " + bullets.size(), 10, 60);
-        g.drawString("Opponent Tanks: " + opponentTanks.size(), 10, 80);
-        g.drawString("Explosions: " + explosions.size(), 10, 100);
-        g.setColor(c);
-
-        myTank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-        for (int i = 0; i < opponentTanks.size(); i++) {
-            opponentTanks.get(i).paint(g);
-        }
-        for (int i = 0; i < explosions.size(); i++) {
-            explosions.get(i).paint(g);
-        }
-
-        // check if bullet and opponent tanks collide
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < opponentTanks.size(); j++) {
-                bullets.get(i).collideWith(opponentTanks.get(j));
-            }
-        }
+        gameModelFacade.paint(g);
     }
 
     class MyKeyboardListener extends KeyAdapter {
@@ -99,7 +71,7 @@ public class TankFrame extends Frame {
                     isDown = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myTank.fire(myTank.getFireMode());
+                    gameModelFacade.getMainTank().fire(gameModelFacade.getMainTank().getFireMode());
                     break;
                 default:
                     break;
@@ -130,6 +102,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMyTankDirection() {
+            Tank myTank = gameModelFacade.getMainTank();
             myTank.setMoving(isLeft || isUp || isRight || isDown);
             if (isLeft) myTank.setDirection(Direction.LEFT);
             if (isUp) myTank.setDirection(Direction.UP);

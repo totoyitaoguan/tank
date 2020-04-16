@@ -11,26 +11,26 @@ public class Bullet {
     private Direction direction;
     private Group group;
     private boolean isLive = true;
-    private TankFrame tankFrame;
+    private GameModelFacade gameModelFacade;
 
-    public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame) {
+    public Bullet(int x, int y, Direction direction, Group group, GameModelFacade gameModelFacade) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModelFacade = gameModelFacade;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tankFrame.bullets.add(this);
+        gameModelFacade.bullets.add(this);
     }
 
     public void paint(Graphics g) {
         if (!isLive) {
-            tankFrame.bullets.remove(this);
+            gameModelFacade.bullets.remove(this);
         }
 
         Image bulletImg;
@@ -91,7 +91,7 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explosion.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explosion.HEIGHT/2;
-            tankFrame.explosions.add(new Explosion(eX, eY, tankFrame));
+            gameModelFacade.explosions.add(new Explosion(eX, eY, gameModelFacade));
         }
 
     }

@@ -13,16 +13,16 @@ public class Tank {
     private Group group;
     private boolean isMoving = true;
     private boolean isLive = true;
-    private TankFrame tankFrame;
+    private GameModelFacade gameModelFacade;
     private Random random = new Random();
     private FireMode fireMode;
 
-    public Tank(int x, int y, Direction direction, Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, Direction direction, Group group, GameModelFacade gameModelFacade) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModelFacade = gameModelFacade;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -45,7 +45,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!isLive) {
-            tankFrame.opponentTanks.remove(this);
+            gameModelFacade.opponentTanks.remove(this);
         }
         Image tankImg;
         switch (direction) {
@@ -166,8 +166,8 @@ public class Tank {
         return rectangle;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public GameModelFacade getGameModelFacade() {
+        return gameModelFacade;
     }
 
     public FireMode getFireMode() {
